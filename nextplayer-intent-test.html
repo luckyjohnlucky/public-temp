@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Next Player Intent 测试</title>
+<style>
+body {
+  font-family: system-ui, sans-serif;
+  padding: 24px;
+  line-height: 1.6;
+}
+a {
+  display: block;
+  padding: 16px;
+  margin-top: 20px;
+  background: #1976d2;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+}
+</style>
+</head>
+<body>
+<h2>Next Player 外部启动测试</h2>
+<p>浏览器：Android Edge Canary</p>
+<p>目标应用：Next Player 0.21.0</p>
+<p>测试方式：真实 intent:// 链接，不经过任何脚本。</p>
+
+<a href="intent://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4#Intent;scheme=https;action=android.intent.action.VIEW;package=dev.anilbeesetti.nextplayer;type=video/*;S.title=Intent%20Test;end">
+  ▶ 点击启动 Next Player
+</a>
+
+<p>判断结果：</p>
+<ul>
+<li>成功打开 Next Player：浏览器能够正常调用外部播放器。</li>
+<li>点击无反应：重点检查 Edge 的 Intent 跳转或系统应用匹配。</li>
+<li>打开播放器但无法播放：再检查外部 URL 传递和播放过程。</li>
+</ul>
+</body>
+</html>
