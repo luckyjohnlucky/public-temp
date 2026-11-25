@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Next Player Intent 测试</title>
+<title>Next Player 外部启动测试</title>
 <style>
 body {
   font-family: system-ui, sans-serif;
@@ -20,23 +20,35 @@ a {
   text-decoration: none;
   border-radius: 8px;
 }
+a.secondary {
+  background: #388e3c;
+}
 </style>
 </head>
 <body>
 <h2>Next Player 外部启动测试</h2>
 <p>浏览器：Android Edge Canary</p>
 <p>目标应用：Next Player 0.21.0</p>
-<p>测试方式：真实 intent:// 链接，不经过任何脚本。</p>
+<p>两个按钮使用同一个公开 MP4 样例地址，区别仅在于跳转方式。</p>
 
+<h3>测试 A：Android Intent</h3>
+<p>通过 intent:// 显式指定 Next Player 包名、VIEW 动作和 video/* 类型。</p>
 <a href="intent://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4#Intent;scheme=https;action=android.intent.action.VIEW;package=dev.anilbeesetti.nextplayer;type=video/*;S.title=Intent%20Test;end">
-  ▶ 点击启动 Next Player
+  ▶ A：通过 intent:// 启动 Next Player
 </a>
 
-<p>判断结果：</p>
+<h3>测试 B：普通 HTTPS 视频链接</h3>
+<p>不使用 intent://，直接打开 HTTPS MP4 地址。Android/浏览器会按已注册的链接处理规则决定由哪个应用打开；如果 Edge 直接播放或下载，也请记录这一结果。</p>
+<a class="secondary" href="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4">
+  ▶ B：直接打开 HTTPS 视频
+</a>
+
+<p>请分别点击 A、B，并记录结果：</p>
 <ul>
-<li>成功打开 Next Player：浏览器能够正常调用外部播放器。</li>
-<li>点击无反应：重点检查 Edge 的 Intent 跳转或系统应用匹配。</li>
-<li>打开播放器但无法播放：再检查外部 URL 传递和播放过程。</li>
+<li>打开 Next Player：该跳转方式能够交给 Next Player。</li>
+<li>留在 Edge 并播放/下载：该方式由 Edge 自己处理。</li>
+<li>出现应用选择框：系统找到了多个可处理该链接的应用。</li>
+<li>点击无反应：记录是否闪屏、是否出现确认框。</li>
 </ul>
 </body>
 </html>
